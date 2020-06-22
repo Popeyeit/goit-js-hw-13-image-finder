@@ -1,7 +1,11 @@
 import './styles.css';
 import API from './js/API';
-import { markUp } from './js/markup';
-import { refs } from './js/refs';
+import {
+  markUp
+} from './js/markup';
+import {
+  refs
+} from './js/refs';
 import debounce from 'lodash.debounce';
 refs.form.addEventListener('input', debounce(handleInput, 500));
 refs.btn.addEventListener('click', handleClick);
@@ -23,10 +27,13 @@ function callFetch() {
     API.makeFetch()
       .then(data => {
         markUp(data);
-        window.scrollTo({
-          top: document.documentElement.offsetHeight,
-          behavior: 'smooth',
-        });
+        if (API.pageNumber > 2) {
+          window.scrollTo({
+            top: document.documentElement.offsetHeight,
+            behavior: 'smooth',
+          });
+        }
+
         chanchedStateBtn(data);
       })
       .catch(err => console.log(err));
